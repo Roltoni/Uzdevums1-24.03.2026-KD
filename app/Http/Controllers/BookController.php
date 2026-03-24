@@ -9,7 +9,7 @@ class BookController extends Controller
 {
     public function index() {
         $books = Book::all();
-        return view('books.index');
+        return view('books.index',["books"=>$books]);
     }
 
     public function create() {
@@ -33,17 +33,17 @@ class BookController extends Controller
 
     public function edit($id) {
         $book = Book::find($id);
-        return $book;
+        return view('books.edit', ['editBook' => $book]);
     }
 
     public function update(Request $request, $id) {
         $book = Book::find($id);
-        $book->update([
+        $book -> update([
             'title' => $request['title'],
             'author' => $request['author'],
             'released_at' => $request['released_at'],
         ]);
 
-        return redirect('/books/' . $book->id);
+        return redirect('/books');
     }
 }
